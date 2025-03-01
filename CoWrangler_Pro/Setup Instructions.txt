@@ -1,0 +1,76 @@
+Setup Instructions
+
+- mkdir backend
+- mkdir frontend
+
+
+Setting up the frontend:
+- cd frontend
+- npx create-react-app cowrangler-ui
+- cd cowrangler-ui
+- npm install axios bootstrap react-bootstrap ag-grid-community ag-grid-react react-syntax-highlighter @monaco-editor/react lodash react-icons
+- mkdir -p src/components src/services
+
+
+Added the following files to components folder:
+- DataPreview.js - For the data grid panel
+- SuggestionsPanel.js - For the suggestions list
+- CodeEditor.js - For the code preview/editing
+- TransformationsHistory.js - For the applied transformations panel
+- MainLayout.js - For the overall UI layout
+
+
+Setting up the backend:
+- Go back to root directory
+- cd backend
+- python -m venv venv (Create and activate virtual environment)
+- If you are on Windows, run venv\Scripts\activate. If you are on MacOS or Linux, run source venv/bin/activate
+- pip install flask flask-cors pandas numpy scikit-learn pytest black (INSTALLING DEPENDENCIES)
+- mkdir cowrangler
+- mkdir cowrangler\learners
+- # Create empty Python files using New-Item
+- New-Item -Path "cowrangler\__init__.py" -ItemType File -Force
+- New-Item -Path "cowrangler\data_analysis.py" -ItemType File -Force
+- New-Item -Path "cowrangler\suggestion_engine.py" -ItemType File -Force
+- New-Item -Path "cowrangler\code_generator.py" -ItemType File -Force
+- New-Item -Path "cowrangler\learners\__init__.py" -ItemType File -Force
+- New-Item -Path "cowrangler\learners\drop_learner.py" -ItemType File -Force
+- New-Item -Path "cowrangler\learners\split_learner.py" -ItemType File -Force
+- New-Item -Path "cowrangler\learners\typecast_learner.py" -ItemType File -Force
+- New-Item -Path "cowrangler\learners\missing_values_learner.py" -ItemType File -Force
+- New-Item -Path "cowrangler\learners\encoding_learner.py" -ItemType File -Force
+- # Create the main Flask application file
+- New-Item -Path "app.py" -ItemType File -Force
+
+
+Added this code to app.py:
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route('/api/upload', methods=['POST'])
+def upload_data():
+    return jsonify({'message': 'File upload endpoint (to be implemented)'})
+
+@app.route('/api/suggestions', methods=['POST'])
+def get_suggestions():
+    return jsonify({'message': 'Suggestions endpoint (to be implemented)'})
+
+@app.route('/api/apply-transformation', methods=['POST'])
+def apply_transformation():
+    return jsonify({'message': 'Apply transformation endpoint (to be implemented)'})
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+While I am still in the backend directory and the venv is activated, I ran the command "python app.py". This started the flask server. When I went to "http://127.0.0.1:5000/" in my browser, I got a message saying "Page not found". This is expected because I haven't defined a route for the root URL.
+
+I added this route to app.y and ran the Flask server again:
+@app.route('/', methods=['GET'])
+def hello():
+    return jsonify({'message': 'Hello from CoWrangler backend!'})
+
+When I went to "http://127.0.0.1:5000/" in my browser, I got a message saying "Hello from the CoWrangler backend!". 
