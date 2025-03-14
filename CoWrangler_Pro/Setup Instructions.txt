@@ -42,6 +42,20 @@ Setting up the backend:
 - # Create the main Flask application file
 - New-Item -Path "app.py" -ItemType File -Force
 
+# above commands for macosx (backend setup)
+'''mkdir -p cowrangler/learners
+
+touch cowrangler/__init__.py
+touch cowrangler/data_analysis.py
+touch cowrangler/suggestion_engine.py
+touch cowrangler/code_generator.py
+
+touch cowrangler/learners/__init__.py
+touch cowrangler/learners/drop_learner.py
+touch cowrangler/learners/split_learner.py
+touch cowrangler/learners/typecast_learner.py
+touch cowrangler/learners/missing_values_learner.py
+touch cowrangler/learners/encoding_learner.py'''
 
 Added this code to app.py:
 from flask import Flask, request, jsonify
