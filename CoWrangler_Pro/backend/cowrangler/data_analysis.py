@@ -24,6 +24,7 @@ class DataAnalyzer:
             
             # Generate basic profile
             self._generate_profile()
+            print(df.dtypes)
             return True
         except Exception as e:
             print(f"Error loading data: {str(e)}")

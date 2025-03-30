@@ -1,4 +1,9 @@
 from cowrangler.learners.drop_learner import DropColumnLearner
+from cowrangler.learners.missing_values_learner import ImputeMissingLearner
+from cowrangler.learners.encoding_learner import EncodeCategoricalLearner
+from cowrangler.learners.split_learner import SplitColumnLearner
+from cowrangler.learners.typecast_learner import TypecastColumnLearner
+
 
 class SuggestionEngine:
     def __init__(self, data_analyzer):
@@ -10,7 +15,10 @@ class SuggestionEngine:
         """Initialize all learners"""
         # Add the drop column learner
         self.learners.append(DropColumnLearner(self.data_analyzer))
-        
+        self.learners.append(ImputeMissingLearner(self.data_analyzer))
+        self.learners.append(EncodeCategoricalLearner(self.data_analyzer))
+        self.learners.append(SplitColumnLearner(self.data_analyzer))
+        self.learners.append(TypecastColumnLearner(self.data_analyzer))
         # Add other learners as they are implemented
         # self.learners.append(SplitLearner(self.data_analyzer))
         # etc.
@@ -40,5 +48,13 @@ class SuggestionEngine:
         for learner in self.learners:
             if isinstance(learner, DropColumnLearner) and suggestion["type"] == "drop_column":
                 return learner.apply_transformation(suggestion)
-        
+            elif isinstance(learner, ImputeMissingLearner) and suggestion["type"] == "impute_missing":
+                return learner.apply_transformation(suggestion)
+            elif isinstance(learner, EncodeCategoricalLearner) and suggestion["type"] == "encode_categorical":
+                return learner.apply_transformation(suggestion)
+            elif isinstance(learner, SplitColumnLearner) and suggestion["type"] == "split_column":
+                return learner.apply_transformation(suggestion)
+            elif isinstance(learner, TypecastColumnLearner) and suggestion["type"] == "typecast_column":
+                return learner.apply_transformation(suggestion)
+
         return False
