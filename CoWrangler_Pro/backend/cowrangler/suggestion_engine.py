@@ -3,12 +3,15 @@ from cowrangler.learners.missing_values_learner import ImputeMissingLearner
 from cowrangler.learners.encoding_learner import EncodeCategoricalLearner
 from cowrangler.learners.split_learner import SplitColumnLearner
 from cowrangler.learners.typecast_learner import TypecastColumnLearner
+from cowrangler.data_analysis import DataAnalyzer
+from cowrangler.ranking_system import RankingSystem
 
 
 class SuggestionEngine:
     def __init__(self, data_analyzer):
         self.data_analyzer = data_analyzer
         self.learners = []
+        self.ranking_system = RankingSystem()
         self._initialize_learners()
     
     def _initialize_learners(self):
@@ -33,10 +36,14 @@ class SuggestionEngine:
             all_suggestions.extend(learner_suggestions)
         
         # Rank suggestions by quality improvement score
-        ranked_suggestions = sorted(
-            all_suggestions,
-            key=lambda x: x.get("quality_improvement", 0),
-            reverse=True
+        # ranked_suggestions = sorted(
+        #     all_suggestions,
+        #     key=lambda x: x.get("quality_improvement", 0),
+        #     reverse=True
+        # )
+        ranked_suggestions = self.ranking_system.rank_suggestions(
+            self.data_analyzer, 
+            all_suggestions
         )
         
         # Return top N suggestions
