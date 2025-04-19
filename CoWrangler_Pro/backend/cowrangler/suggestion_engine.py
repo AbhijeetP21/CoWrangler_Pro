@@ -5,7 +5,7 @@ from cowrangler.learners.split_learner import SplitColumnLearner
 from cowrangler.learners.typecast_learner import TypecastColumnLearner
 from cowrangler.data_analysis import DataAnalyzer
 # from cowrangler.ranking_system import RankingSystem
-from cowrangler.ml_ranking_system import MLRankingSystem
+from cowrangler.ranking_system import MLRankingSystem
 
 
 class SuggestionEngine:
