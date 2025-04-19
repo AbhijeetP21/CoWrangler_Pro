@@ -4,14 +4,15 @@ from cowrangler.learners.encoding_learner import EncodeCategoricalLearner
 from cowrangler.learners.split_learner import SplitColumnLearner
 from cowrangler.learners.typecast_learner import TypecastColumnLearner
 from cowrangler.data_analysis import DataAnalyzer
-from cowrangler.ranking_system import RankingSystem
+# from cowrangler.ranking_system import RankingSystem
+from cowrangler.ml_ranking_system import MLRankingSystem
 
 
 class SuggestionEngine:
     def __init__(self, data_analyzer):
         self.data_analyzer = data_analyzer
         self.learners = []
-        self.ranking_system = RankingSystem()
+        self.ranking_system = MLRankingSystem(model_path="ranking_model.joblib")
         self._initialize_learners()
     
     def _initialize_learners(self):
