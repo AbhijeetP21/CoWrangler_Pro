@@ -50,6 +50,17 @@ const ApiService = {
       console.error('Error applying transformation:', error);
       throw error;
     }
+  }, 
+
+  exportCsv: async () => {
+    try {
+      // Use window.open for direct download instead of axios
+      window.open(`${API_URL}/export-csv`);
+      return true;
+    } catch (error) {
+      console.error('Error exporting CSV:', error);
+      throw error;
+    }
   }
 };
 

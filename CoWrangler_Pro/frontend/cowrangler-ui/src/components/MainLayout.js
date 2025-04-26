@@ -19,24 +19,24 @@ const MainLayout = () => {
   const [fileUploaded, setFileUploaded] = useState(false);
 
   // In the loadData function of MainLayout.js
-const loadData = async () => {
-  try {
-    console.log("Loading data from API...");
-    const response = await ApiService.getData();
-    console.log("API response:", response);
-    
-    if (response && response.data) {
-      console.log(`Setting data state with ${response.data.length} rows`);
-      setData(response.data);
-      setColumns(response.columns);
-    } else {
-      console.error("API returned without data:", response);
+  const loadData = async () => {
+    try {
+      console.log("Loading data from API...");
+      const response = await ApiService.getData();
+      console.log("API response:", response);
+      
+      if (response && response.data) {
+        console.log(`Setting data state with ${response.data.length} rows`);
+        setData(response.data);
+        setColumns(response.columns);
+      } else {
+        console.error("API returned without data:", response);
+      }
+    } catch (err) {
+      console.error("Error loading data:", err);
+      setError('Failed to load data: ' + (err.message || 'Unknown error'));
     }
-  } catch (err) {
-    console.error("Error loading data:", err);
-    setError('Failed to load data: ' + (err.message || 'Unknown error'));
-  }
-};
+  };
 
   const loadSuggestions = async () => {
     try {
@@ -112,6 +112,14 @@ const loadData = async () => {
     }
   };
 
+  const handleExportCsv = async () => {
+    try {
+      await ApiService.exportCsv();
+    } catch (err) {
+      setError('Failed to export CSV: ' + (err.message || 'Unknown error'));
+    }
+  };
+
   return (
     <Container fluid className="vh-100 d-flex flex-column">
       <Row className="py-2 bg-light border-bottom">
@@ -134,7 +142,8 @@ const loadData = async () => {
           >
             {loading ? 'Loading...' : 'Load'}
           </Button>
-          <Button variant="outline-secondary" size="sm" className="ms-2" disabled={!fileUploaded}>
+          {/* <Button variant="outline-secondary" size="sm" className="ms-2" disabled={!fileUploaded}> */}
+          <Button variant="outline-secondary" size="sm" className="ms-2" onClick={handleExportCsv} disabled={!fileUploaded || loading}>
             Export to CSV
           </Button>
           <Button variant="outline-secondary" size="sm" className="ms-2" disabled={!fileUploaded}>

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 import io
 import json
@@ -115,6 +115,30 @@ def apply_transformation():
     else:
         return jsonify({'error': 'Failed to apply transformation'}), 400
 
+
+@app.route('/api/export-csv', methods=['GET'])
+def export_csv():
+    global data_analyzer
+    
+    if data_analyzer is None or data_analyzer.df is None:
+        return jsonify({'error': 'No data available to export'}), 400
+        
+    try:
+        # Convert DataFrame to CSV string
+        csv_data = data_analyzer.df.to_csv(index=False)
+        
+        # Create response with CSV data
+        response = make_response(csv_data)
+        response.headers["Content-Disposition"] = "attachment; filename=transformed_data.csv"
+        response.headers["Content-Type"] = "text/csv"
+        
+        return response
+    except Exception as e:
+        print(f"Error exporting CSV: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     print("Starting Flask server on http://localhost:5000...")
     app.run(debug=True)
+
+
