@@ -14,6 +14,7 @@ Step 4: Active the virtual environment with `source ven/bin/activate` on Mac OS 
 Step 5: Run `python app.py`
 
 
+
 Terminal 2:
 
 Step 6: cd CoWrangler_Pro/CoWrangler_Pro/frontend/cowrangler-ui
