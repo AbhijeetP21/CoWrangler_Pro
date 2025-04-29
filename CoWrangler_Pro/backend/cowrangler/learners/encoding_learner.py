@@ -4,7 +4,7 @@ from sklearn.preprocessing import LabelEncoder
 class EncodeCategoricalLearner:
     def __init__(self, data_analyzer):
         self.data_analyzer = data_analyzer
-        self.max_unique_threshold = 10  # You can adjust as needed
+        self.max_unique_threshold = 10  
 
     def generate_suggestions(self):
         suggestions = []
