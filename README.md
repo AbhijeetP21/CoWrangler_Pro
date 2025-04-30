@@ -9,7 +9,7 @@ Step 2: `git clone https://github.com/AbhijeetP21/CoWrangler_Pro.git`
 
 Step 3: cd CoWrangler_Pro/CoWrangler_Pro/backend
 
-Step 4: Active the virtual environment with `source ven/bin/activate` on Mac OS or Linux devices or with `run venv\Scripts\activate` on Windows devices.
+Step 4: Active the virtual environment with `source ven/bin/activate` on Mac OS or Linux devices or with `venv\Scripts\activate` on Windows devices.
 
 Step 5: Run `python app.py`
 
