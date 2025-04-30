@@ -1,5 +1,5 @@
 Steps to download and run the code for the project are as follows:
-(Please note that we are using npm and this might give some compatibility issues. We are considering steps that need to be performed after freshly cloning the github repository)
+(Please note that we are using npm and this might give some compatibility issues. We are considering steps that need to be performed after freshly cloning the github repository. Please install npm and node before following the next steps.)
 
 Terminal 1:
 
